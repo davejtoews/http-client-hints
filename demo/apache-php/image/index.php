@@ -15,7 +15,7 @@ $URI = substr($_SERVER['DOCUMENT_ROOT'].(
 $URI_DENSITY = 1;
 
 // get client hints (with fallbacks)
-parse_str(str_replace(',', '&', 'do=0&dpr=1&dw=1024&dh=768&'.@$_SERVER['HTTP_CH']), $HINT);
+parse_str(str_replace(',', '&', 'do=0&dpr=1&dw=1024&vw=800&dh=768&'.@$_SERVER['HTTP_CH']), $HINT);
 
 // get image info
 $INFO = pathinfo($URI);
@@ -59,15 +59,11 @@ header('Content-Type: image/jpeg');
 // get image data
 list($URI_WIDTH, $URI_HEIGHT) = getimagesize($URI);
 
-// get image ratio
-$IMAGE_DENSITY = (string) min($HINT['dpr'] / $URI_DENSITY, 1);
-
-// exit as original image if image density is 1
-if ($IMAGE_DENSITY === '1') close(200, 'OK', file_get_contents($URI));
+$ratio = $URI_HEIGHT / $URI_WIDTH;
 
 // set new image size
-$IMAGE_WIDTH  = $URI_WIDTH  * $IMAGE_DENSITY;
-$IMAGE_HEIGHT = $URI_HEIGHT * $IMAGE_DENSITY;
+$IMAGE_WIDTH  = $HINT['vw'];
+$IMAGE_HEIGHT = $HINT['vw'] * $ratio;
 
 // set new image
 $IMAGE = imagecreatetruecolor($IMAGE_WIDTH, $IMAGE_HEIGHT);

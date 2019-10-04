@@ -1,3 +1,5 @@
+Modified after forking to change on viewport width rather than screen width ... Seems to work better in some browsers than others. Requires deleting cookies and refreshing to get a new screen size.
+
 # HTTP Client Hints
 
 The Client Hints (CH) header communicates device capabilities to the server, allowing the server to return the best possible experience back to the device.

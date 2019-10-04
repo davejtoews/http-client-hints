@@ -1,0 +1,8 @@
+version: "3"
+services:
+  web:
+    image: evanshunt/php-for-ss:4
+    volumes:
+      - ./demo/apache-php:/var/www/html/
+    ports:
+      - "80:80"
